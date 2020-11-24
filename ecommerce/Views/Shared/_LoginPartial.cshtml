@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNet.Identity
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@*@Styles.Render("~/css/font-awesome.css")*@
+<style>
+    .profile_details_drop a {
+        display: block;
+        padding-top: 1em;
+        font-size: 1em;
+        color: black;
+    }
+
+    .w3l_header_right {
+        float: left;
+        
+    }
+
+        .w3l_header_right ul li {
+            list-style-type: none;
+        }
+    .w3ls_vegetables_menu {
+        left: 13%;
+        border: none;
+        padding: 1em;
+    }
+
+    .w3ls_vegetables ul li {
+        list-style-type: none;
+    }
+
+        .w3ls_vegetables ul li:first-child {
+            margin-bottom: .5em;
+        }
+
+        .w3ls_vegetables ul li a {
+            color: #212121;
+            /*-- w3layouts --*/
+            display: block;
+            text-decoration: none;
+        }
+
+            .w3ls_vegetables ul li a:hover {
+                color: #FA1818;
+            }
+    ul.dropdown-menu.drp-mnu {
+        right: 0;
+        min-width: 130px;
+        text-align: center;
+        padding: 1.5em 0;
+        margin: 0;
+        left: auto;
+    }
+
+        ul.dropdown-menu.drp-mnu li:first-child {
+            margin-bottom: .5em;
+        }
+
+        ul.dropdown-menu.drp-mnu li a {
+            color: #999;
+        }
+
+            ul.dropdown-menu.drp-mnu li a i {
+                padding-left: 1em;
+            }
+
+</style>
+<div class="w3l_header_right">
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul style="padding-left:0px">
+                <li class="dropdown profile_details_drop">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+                    <div class="mega-dropdown-menu">
+                        <div class="w3ls_vegetables">
+                            <ul class="dropdown-menu drp-mnu">
+                                <li>
+                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                </li>
+                                <li>@Html.ActionLink("My Account", "MyProfile", "Account", routeValues: null, htmlAttributes: new { id = "myaccountLink" })</li>
+                                <li>@Html.ActionLink("My Orders", "MyOrders", "Shop", routeValues: null, htmlAttributes: new { id = "myordersLink" })</li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+                        </ul>
+                            </div>
+                        </div>
+                      
+
+                </li>
+               
+            </ul>
+
+        }
+    }
+    else
+    {
+        <ul style="padding-left:0px">
+            <li class="dropdown profile_details_drop">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+                <div class="mega-dropdown-menu">
+                    <div class="w3ls_vegetables">
+                        <ul class="dropdown-menu drp-mnu">
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    }
+</div>
+    @Scripts.Render("~/js/jquery.min.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown").hover(
+               
+                function () {
+                    
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>

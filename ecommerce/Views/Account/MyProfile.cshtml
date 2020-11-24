@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNet.Identity
+@model ecommerce.Models.ApplicationUser
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<div class="card-body">
+    @*<div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Profile Picture</label>
+        <div class="col-sm-10">
+            <img src="@Model.Profilepicture" width="75px" />
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-profilepic">
+                Change Picture
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                Change Password
+            </button>
+        </div>
+    </div>*@
+   
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">First name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtFirstname" placeholder="First name" value="@Model.Firstname">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Last name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtlastname" placeholder="Last name" value="@Model.Lastname">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Mobile</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtmobile" placeholder="Mobile" value="@Model.Mobile">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtemail" placeholder="Email" value="@Model.Email" readonly="readonly">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtaddress" placeholder="Address" value="@Model.Address">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">City</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtbankname" placeholder="City" value="@Model.City">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">State</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtIFSC" placeholder="State" value="@Model.State">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Country</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtaccountholder" placeholder="Country" value="@Model.Country">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Postal Code</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtpan" placeholder="Postal Code" value="@Model.Postalcode">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+            <button type="submit" class="btn btn-primary" id="btnEdit">Edit</button>
+            <button type="submit" class="btn btn-primary" id="btnCancel">Cancel</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('input[type=text]').prop('disabled', true);
+        $("#btnSave").hide(); $("#btnCancel").hide();
+
+        //load data of user again
+
+        $("#btnEdit").click(function () {
+            $('input[type=text]').prop('disabled', false);
+            $("#btnSave").show(); $("#btnCancel").show(); $("#btnEdit").hide();
+        });
+
+        $("#btnSave").click(function () {
+
+            //load data of user again
+
+            $('input[type=text]').prop('disabled', true);
+
+            $("#btnSave").hide(); $("#btnCancel").hide();
+
+            $("#btnEdit").show();
+            
+
+        });
+        $("#btnCancel").click(function () {
+            //load data of user again
+
+            $('input[type=text]').prop('disabled', true);
+            $("#btnSave").hide(); $("#btnCancel").hide();
+
+            $("#btnEdit").show();
+        });
+    });
+</script>
+

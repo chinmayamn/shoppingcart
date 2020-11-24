@@ -1,0 +1,115 @@
+﻿@model ecommerce.Models.ShoppingCart
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int idx = 0;
+
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+                <h1 class="mb-0 bread">My Cart</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section ftco-cart">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>Product name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+@foreach (var citem in Model.Items)
+{
+    var a = "qty" + citem.ProductId;
+    var m = "mbtn" + citem.ProductId;
+    var p = "pbtn" + citem.ProductId;
+    var t = "linetotal" + citem.ProductId;
+
+                            <tr class="text-center">
+                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+
+                                <td class="image-prod"><a href="/shop/productdetail/@citem.ProductId">
+                                <div class="img" style="background-image:url(@citem.ProductImageUrl);"></div></a></td>
+
+                                <td class="product-name">
+                                    <a href="/shop/productdetail/@citem.ProductId"><h3>@citem.ProductName</h3></a>
+                                        <p>Far far away, behind the word mountains, far from the countries</p>
+</td>
+
+                                <td class="price">$@citem.price</td>
+
+                                <td class="quantity">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-btn mr-2" >
+                                            <button type="button" class="quantity-left-minus btn" id="@m" alt="@citem.ProductId" data-type="minus" data-field="" style="-webkit-box-shadow:none;border-radius:0px !important">
+                                                <i class="ion-ios-remove"></i>
+                                            </button>
+                                        </span>
+
+
+                                        <input type="text" name="quantity" class="quantity form-control input-number" value="@citem.quantity" min="1" max="100" readonly="readonly" id="@a" alt="@idx" >
+
+                                        <span class="input-group-btn ml-2" >
+                                            <button type="button" class="quantity-right-plus btn" id="@p" alt="@citem.ProductId" data-type="plus" data-field="" style="-webkit-box-shadow:none;border-radius:0px !important">
+                                                <i class="ion-ios-add"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td class="total" id="@t">@citem.Linetotal</td>
+                            </tr><!-- END TR-->
+    idx++;
+}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+            <div class="cart-total mb-3">
+                <h3>Cart Totals</h3>
+                <p class="d-flex">
+                    <span>Subtotal</span>
+                    <span id="txtsubtotal">$@Model.SubTotal</span>
+                </p>
+                <p class="d-flex">
+                    <span>Delivery</span>
+                    <span>$@Model.DeliveryCharge</span>
+                </p>
+                <p class="d-flex">
+                    <span>Discount</span>
+                    <span>$@Model.FinalDiscount</span>
+                </p>
+                <p class="d-flex">
+                    <span>GST</span>
+                    <span>$@Model.GST</span>
+                </p>
+                <hr>
+                <p class="d-flex total-price">
+                    <span>Total</span>
+                    <span id="txtfinaltotal">$@Model.FinalTotal</span>
+                </p>
+            </div>
+            <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+        </div>
+    </div>
+   
+</section>
+@Scripts.Render("~/js/jquery.min.js")

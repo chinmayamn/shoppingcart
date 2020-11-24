@@ -1,0 +1,2 @@
+C:\Users\chaitra\source\repos\ecommerce\ecommerce.Tests\obj\Debug\ecommerce.Tests.csprojResolveAssemblyReference.cache
+C:\Users\chaitra\source\repos\ecommerce\ecommerce.Tests\obj\Debug\ecommerce.Tests.csproj.CoreCompileInputs.cache
