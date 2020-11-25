@@ -192,12 +192,7 @@
 
 @Scripts.Render("~/js/jquery.min.js")
 <script type="text/javascript">
-   
-    $(document).ready(function () {
-
-       
-    $("#btnadd").click(function () {
-
+$(document).ready(function(){ 
         var s = new Object();
         s.ProductID = '@Model.Id';
         s.ProductName = '@Model.Name';
@@ -205,30 +200,29 @@
         s.Price = '@Model.Price';
         s.Quantity = $("#quantity").val();
         s.Discount = '@Model.Discount';
+        $("#btnadd").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/api/cart/additemtocart",
+                async: false,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(s),
+                success: function (data) {
 
-        $.ajax({
-            type: "POST",
-            url: "/api/cart/additemtocart",
-            async: false,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(s)  ,
-            success: function (data) {
-               
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
-            $('#qty').animate({ fontSize: 18 }, 400);
-            $('#qty').animate({ fontSize: 11 }, 400);
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    $('#qty').animate({ fontSize: 18 }, 400);
+                    $('#qty').animate({ fontSize: 11 }, 400);
 
-            toastr.success('Item added to cart successfully')
-            },
-            error: function (data) {
-            toastr.error('Error occurred'); return false;
-
-            }
+                    toastr.success('Item added to cart successfully')
+                },
+                error: function (data) {
+                    toastr.error('Error occurred'); return false;
+                }
+            });
+            GetCart();
         });
-        GetCart();
-        });
-
-
-    });
+ 
+});
+    
 </script>

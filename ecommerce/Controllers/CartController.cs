@@ -13,6 +13,7 @@ using System.Web.Http.Owin;
 using Newtonsoft.Json;
 using System.Web.Http.Routing;
 
+
 namespace ecommerce.Controllers
 {
     [Authorize]
@@ -76,6 +77,34 @@ namespace ecommerce.Controllers
             return "success";
         }
 
+        [HttpGet]
+        [Route("singleitemadd")]
+        public HttpResponseMessage AddSingleItem(int? id)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ShoppingCart s1;
+            if (user.ShopCart != null)
+            {
+                s1 = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
+
+            }
+            else
+            {
+                s1 = new ShoppingCart();
+            }
+            List<Products> pp = new List<Models.Products>();
+            Products p = new Products();
+            string jsonString = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("~/js/data.js"));
+            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            p = plist.Find(x => x.Id == Convert.ToInt32(id));
+
+            s1.Insert(p.Id, p.Name, p.Image, p.Price,1, p.Discount);
+            user.ShopCart = JsonConvert.SerializeObject(s1);
+            UserManager.Update(user);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK,"success");
+            return response;
+        }
+
         [HttpPost]
         [Route("QuantityUpdate")]
         public string IncrementQty(object s)
@@ -99,7 +128,29 @@ namespace ecommerce.Controllers
             return user.ShopCart;
         }
 
+        [HttpPost]
+        [Route("DeleteItem")]
+        public string DeleteItem(object s)
+        {
+            CartItem c = JsonConvert.DeserializeObject<CartItem>(s.ToString());
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ShoppingCart s1;
+            if (user.ShopCart != null)
+            {
+                s1 = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
 
-
+            }
+            else
+            {
+                s1 = new ShoppingCart();
+            }
+            int search_row_id = s1.Items.FindIndex(m=>m.ProductId == c.ProductId); //get row id by product id and delete it from list
+            s1.DeleteItem(search_row_id);
+            user.ShopCart = JsonConvert.SerializeObject(s1);
+            UserManager.Update(user);
+            return user.ShopCart;
         }
+
+
+    }
 }

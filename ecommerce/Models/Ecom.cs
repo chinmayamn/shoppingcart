@@ -16,8 +16,8 @@ namespace ecommerce.Models
         private string name;
         private string image;
         private string category;
-        private string price;
-        private string discount;
+        private double price;
+        private double discount;
         private string rating;
         private string desc;
 
@@ -25,8 +25,8 @@ namespace ecommerce.Models
         public string Name { get => name; set => name = value; }
         public string Image { get => image; set => image = value; }
         public string Category { get => category; set => category = value; }
-        public string Price { get => price; set => price = value; }
-        public string Discount { get => discount; set => discount = value; }
+        public double Price { get => price; set => price = value; }
+        public double Discount { get => discount; set => discount = value; }
         public string Rating { get => rating; set => rating = value; }
         public string ProdDesc { get => desc; set => desc = value; }
     }
@@ -235,6 +235,7 @@ namespace ecommerce.Models
                 NewItem.ProductName = name;
                 NewItem.ProductImageUrl = pimage;
                 NewItem.discount = discount;
+               
                 _items.Add(NewItem);
             }
             else

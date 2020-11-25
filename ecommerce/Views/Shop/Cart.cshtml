@@ -40,9 +40,10 @@
     var m = "mbtn" + citem.ProductId;
     var p = "pbtn" + citem.ProductId;
     var t = "linetotal" + citem.ProductId;
+    var z = "tr" + citem.ProductId;
 
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                            <tr class="text-center" id="@z">
+                                <td class="product-remove" ><a  class="dela" alt="@citem.ProductId" ><span class="ion-ios-close" ></span></a></td>
 
                                 <td class="image-prod"><a href="/shop/productdetail/@citem.ProductId">
                                 <div class="img" style="background-image:url(@citem.ProductImageUrl);"></div></a></td>

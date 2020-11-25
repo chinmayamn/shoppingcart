@@ -1,4 +1,4 @@
-﻿function UpdateQuantity(itemindex, productid, quantity,flag) {
+﻿function UpdateQuantity(itemindex, productid, quantity, flag) {
     var s = new Object();
     s.RowId = itemindex;
     s.ProductID = productid;
@@ -46,7 +46,8 @@ function GetCart() {
             $("#qty").text(n);
 
         },
-        error: function (data) {
+        error: function (a, b, c) {
+          
             toastr.error('Error occurred'); return false;
         }
 
@@ -105,6 +106,56 @@ $(document).ready(function () {
         timer: 3000
     });
 
-   
+    $(".dela").click(function () {
+        var s = new Object();
+        var pid = $(this).attr("alt");
+        s.ProductId = pid; //get product id
+
+        $.ajax({
+            type: "POST",
+            url: "/api/cart/deleteitem",
+            async: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(s)
+            ,
+            success: function (data) {
+                var f = "#tr" + pid;
+                $(f).remove();
+                var cartdata = JSON.parse(data);
+                $("#txtsubtotal").text(cartdata.SubTotal);
+                $("#txtfinaltotal").text(cartdata.FinalTotal);
+                GetCart();
+                toastr.success('Item removed from cart');
+            },
+            error: function (data) {
+                toastr.error('Error occurred'); return false;
+            }
+
+        });
+    });
+
+    $(".addsingle").click(function () {
+        var pid = $(this).attr("alt");
+
+        $.ajax({
+            type: "GET",
+            url: "/api/cart/singleitemadd",
+            async: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: { 'id': pid }
+            ,
+            success: function (data) {
+                GetCart();
+                toastr.success('Item added to cart');
+            },
+            error: function (a, b, c) {
+
+                toastr.error('Error occurred'); return false;
+            }
+
+        });
+    });
 
 });
