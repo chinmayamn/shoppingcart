@@ -126,3 +126,4 @@ C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\Microsoft.AI.Web.xml
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.csproj.CoreCompileInputs.cache
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.dll
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.pdb
+C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.csprojResolveAssemblyReference.cache

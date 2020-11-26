@@ -14,6 +14,7 @@ using System.Net.Http;
 
 namespace ecommerce.Controllers
 {
+    
     public class ShopController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -21,10 +22,12 @@ namespace ecommerce.Controllers
 
         public ShopController()
         {
+             
         }
 
         public ShopController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+           
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -54,9 +57,10 @@ namespace ecommerce.Controllers
             }
         }
 
-
+       
         public ActionResult Index()
         {
+            Session["theme"] = "shop";
             List<Products> pp = new List<Models.Products>();
             Products p = new Products();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
@@ -108,6 +112,7 @@ namespace ecommerce.Controllers
             }
             return View();
         }
+
         public ActionResult Login()
         {
 
