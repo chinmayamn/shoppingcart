@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ecommerce.Models
 {
@@ -10,7 +11,7 @@ namespace ecommerce.Models
     {
 
     }
-    public class Products
+    public class Product
     {
         private int id;
         private string name;
@@ -347,6 +348,13 @@ namespace ecommerce.Models
                 return t;
             }
         }
-
     }
+
+    //implementing interface
+    interface IShopCore
+    {
+        ActionResult MyOrders();
+        ActionResult Cart();
+    }
+
 }

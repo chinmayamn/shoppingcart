@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNet.Identity
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@*@Styles.Render("~/css/font-awesome.css")*@
+<style>
+    .drp-mnu {
+        background-color: white !important;padding:0px !important;
+    }
+        .drp-mnu li {
+            margin-right:0px !important;display:block !important;padding:10px !important;
+        }
+
+    .drp-mnu li:hover {
+        background-color: orange !important;
+    }
+
+    .profile_details_drop a {
+        display: block;
+        padding-top: 1em;
+        font-size: 1em;
+        color: black;
+    }
+
+    ul.dropdown-menu.drp-mnu {
+        right: 0;
+        min-width: 130px;
+        text-align: center;
+        padding: 1.5em 0;
+        margin: 0;
+        left: auto;
+    }
+
+        ul.dropdown-menu.drp-mnu li:first-child {
+            margin-bottom: .5em;
+        }
+
+        ul.dropdown-menu.drp-mnu li a {
+            color:black;
+        }
+
+            ul.dropdown-menu.drp-mnu li a i {
+                padding-left: 1em;
+            }
+</style>
+<div class="w3l_header_right">
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            
+                    <a href="#"  data-toggle="dropdown">Welcome&nbsp;&nbsp; <i class="fa fa-user" aria-hidden="true"></i><span class="arrow_carrot-down"></span></a>
+                            <ul class="dropdown-menu drp-mnu">
+                             
+                                <li>@Html.ActionLink("My Account", "MyProfile", "Account", routeValues: null, htmlAttributes: new { id = "myaccountLink" })</li>
+                                <li>@Html.ActionLink("My Orders", "MyOrders", "Shop", routeValues: null, htmlAttributes: new { id = "myordersLink" })</li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+                            </ul>
+               
+        }
+    }
+    else
+    {
+     
+                <a href="#" data-toggle="dropdown">Sign in <span class="arrow_carrot-down"></span></a>
+                        <ul class="dropdown-menu drp-mnu">
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        </ul>
+          
+    }
+</div>
+@Scripts.Render("~/js/jquery.min.js")
+<script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown").hover(
+
+                function () {
+
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+</script>
+

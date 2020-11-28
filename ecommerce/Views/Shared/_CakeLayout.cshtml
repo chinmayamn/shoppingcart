@@ -7,7 +7,7 @@
     <meta name="keywords" content="Cake, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cake | Template</title>
+    <title>Cake</title>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet">
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/cake/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/cake/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/cake/css/style.css" type="text/css">
+    @Styles.Render("~/css/flaticon.css")
 </head>
 
 <body>
@@ -64,7 +65,11 @@
                         <li>ENG</li>
                     </ul>
                 </li>
-                <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                <li>@Html.Partial("_CakeLoginPartial")
+           
+                <a href="#">Sign in</a> <span class="arrow_carrot-down"></span>
+                
+                </li>
             </ul>
         </div>
     </div>
@@ -92,11 +97,14 @@
                                             <li>ENG</li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                                    <li>
+                                    @Html.Partial("_CakeLoginPartial")
+                                    @*<a href="/account/login">Sign in</a> <span class="arrow_carrot-down"></span>*@
+                                    </li>
                                 </ul>
                             </div>
                             <div class="header__logo">
-                                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                                <a href="/cake/index"><img src="img/logo.png" alt=""></a>
                             </div>
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
@@ -222,15 +230,21 @@
     </div>
     <!-- Search End -->
     <!-- Js Plugins -->
-    <script src="/cake/js/jquery-3.3.1.min.js"></script>
-    <script src="/cake/js/bootstrap.min.js"></script>
-    <script src="/cake/js/jquery.nice-select.min.js"></script>
-    <script src="/cake/js/jquery.barfiller.js"></script>
-    <script src="/cake/js/jquery.magnific-popup.min.js"></script>
-    <script src="/cake/js/jquery.slicknav.js"></script>
-    <script src="/cake/js/owl.carousel.min.js"></script>
-    <script src="/cake/js/jquery.nicescroll.min.js"></script>
-    <script src="/cake/js/main.js"></script>
+    @Scripts.Render("/cake/js/jquery-3.3.1.min.js")
+    @Scripts.Render("/cake/js/bootstrap.min.js")
+    @Scripts.Render("/cake/js/jquery.nice-select.min.js")
+    @Scripts.Render("/cake/js/jquery.barfiller.js")
+    @Scripts.Render("/cake/js/jquery.magnific-popup.min.js")
+    @Scripts.Render("/cake/js/jquery.slicknav.js")
+    @Scripts.Render("/cake/js/owl.carousel.min.js")
+    @Scripts.Render("/cake/js/jquery.nicescroll.min.js")
+    @Scripts.Render("/cake/js/main.js")
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/Content/plugins/toastr/toastr.min.css">
+    <script src="~/Content/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/plugins/toastr/toastr.min.js"></script>
+    @Scripts.Render("~/scripts/shop.js")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

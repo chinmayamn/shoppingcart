@@ -1,4 +1,26 @@
-﻿function UpdateQuantity(itemindex, productid, quantity, flag) {
+﻿function Fillcategory() {
+    $.ajax({
+        type: "GET",
+        url: "/api/cart/fillcategory",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: {}
+        ,
+        success: function (data) {
+            alert(data);
+            console.log(data);
+            toastr.success('Item added to cart');
+        },
+        error: function (a, b, c) {
+            alert(a);
+            toastr.error('Error occurred'); return false;
+        }
+
+    });
+}
+
+function UpdateQuantity(itemindex, productid, quantity, flag) {
     var s = new Object();
     s.RowId = itemindex;
     s.ProductID = productid;
@@ -157,5 +179,7 @@ $(document).ready(function () {
 
         });
     });
+
+
 
 });

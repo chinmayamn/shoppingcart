@@ -32,7 +32,7 @@ namespace ecommerce.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("CakeConnection", throwIfV1Schema: false)
         {
         }
 

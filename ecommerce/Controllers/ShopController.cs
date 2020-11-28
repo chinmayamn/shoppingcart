@@ -15,7 +15,7 @@ using System.Net.Http;
 namespace ecommerce.Controllers
 {
     
-    public class ShopController : Controller
+    public class ShopController : Controller, IShopCore
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -61,25 +61,21 @@ namespace ecommerce.Controllers
         public ActionResult Index()
         {
             Session["theme"] = "shop";
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
+            List<Product> pp = new List<Models.Product>();
+            Product p = new Product();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             return View(plist.Take(8));
         }
 
 
         public ActionResult About()
         {
-
-
             return View();
         }
 
         public ActionResult MyOrders()
         {
-
-
             return View();
         }
 
@@ -130,10 +126,10 @@ namespace ecommerce.Controllers
         [Route("shop/products/{cat}")]
         public ActionResult DirectProducts(string cat)
         {
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
+            List<Product> pp = new List<Models.Product>();
+            Product p = new Product();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             plist = plist.Where(x => x.Category == cat).ToList();
             return View("products",plist);
         }
@@ -142,10 +138,10 @@ namespace ecommerce.Controllers
         [Route("shop/Products")]
         public ActionResult Products()
         {
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
+            List<Product> pp = new List<Models.Product>();
+            Product p = new Product();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             return View(plist);
         }
      
@@ -171,10 +167,10 @@ namespace ecommerce.Controllers
         }
         public ActionResult ProductDetail(int? id)
         {
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
+            List<Product> pp = new List<Models.Product>();
+            Product p = new Product();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             p = plist.Find(x => x.Id == id);
             return View(p);
         }

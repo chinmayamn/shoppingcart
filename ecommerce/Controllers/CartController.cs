@@ -12,16 +12,19 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http.Owin;
 using Newtonsoft.Json;
 using System.Web.Http.Routing;
-
+using System.Data;
 
 namespace ecommerce.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        Category c;
+        DataTable dt;
 
         public ApplicationSignInManager SignInManager
         {
@@ -92,10 +95,10 @@ namespace ecommerce.Controllers
             {
                 s1 = new ShoppingCart();
             }
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
+            List<Product> pp = new List<Models.Product>();
+            Product p = new Product();
             string jsonString = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             p = plist.Find(x => x.Id == Convert.ToInt32(id));
 
             s1.Insert(p.Id, p.Name, p.Image, p.Price,1, p.Discount);
@@ -149,6 +152,22 @@ namespace ecommerce.Controllers
             user.ShopCart = JsonConvert.SerializeObject(s1);
             UserManager.Update(user);
             return user.ShopCart;
+        }
+
+        [HttpGet]
+        [Route("fillcategory")]
+        public HttpResponseMessage FillCategory()
+        {
+            c = new Category();
+            dt = c.fillcategory();
+            List<Category> l = (from DataRow row in dt.Rows select new Category {
+                Id = Convert.ToInt32(row["id"]),
+                CategoryName = row["category"].ToString(),
+                Parentid = Convert.ToInt32(row["parentid"]==DBNull.Value ? 0 :row["parentid"]),
+                Visible =Convert.ToInt32(row["visible"])
+            }).ToList();
+                
+                return Request.CreateResponse(HttpStatusCode.OK, l);
         }
 
 

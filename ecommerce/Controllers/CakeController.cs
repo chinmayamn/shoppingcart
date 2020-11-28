@@ -3,12 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ecommerce.Models;
+using Newtonsoft.Json;
+using System.IO;
+using System.Data;
+using System.Web.Routing;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace ecommerce.Controllers
 {
     public class CakeController : Controller
     {
+        private HttpClient client = new HttpClient();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+    
+        public CakeController()
+        {
+            client.BaseAddress = new Uri("http://localhost:49820/");
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+
+
+        }
+
+        public CakeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
+
         // GET: Cake
+        [Route("cake")]
+        [Route("cake/index")]
         public ActionResult Index()
         {
             Session["theme"] = "cake";
@@ -17,34 +76,48 @@ namespace ecommerce.Controllers
 
         public ActionResult MyOrders()
         {
-
-
             return View();
         }
+
         public ActionResult Gallery()
         {
-
-
             return View();
         }
+
         public ActionResult Search()
         {
-
-
             return View();
         }
+
         public ActionResult Cart()
         {
 
-
             return View();
         }
+
         public ActionResult Checkout()
         {
             return View();
         }
 
-        [Route("cake/about")]
+        public  async Task<ActionResult> Category()
+        {
+          
+            HttpResponseMessage res = await client.GetAsync("api/cart/fillcategory");
+            res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var empresponse = "";
+            List<Category> ll = new List<Models.Category>();
+            if (res.IsSuccessStatusCode)
+            {
+                empresponse = res.Content.ReadAsStringAsync().Result;
+                ll = JsonConvert.DeserializeObject<List<Category>>(empresponse);
+             
+            }
+                return View(ll);
+        }
+
+
+        
         [Route("cake/shipping_information")]
         [Route("cake/exchange")]
         [Route("cake/terms_conditions")]
