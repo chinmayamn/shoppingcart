@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ecommerce.Models.Product>
+﻿@model IEnumerable<ecommerce.Models.Products>
 @{
 
 }
@@ -92,10 +92,10 @@
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/shop/productdetail/@item.Id">@item.Name</a></h3>
+                        <h3><a href="/shop/productdetail/@item.Id">@item.ProductName</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="price-sale">$@item.Price</span></p>
+                                <p class="price"><span class="price-sale">$@item.ActualPrice</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">

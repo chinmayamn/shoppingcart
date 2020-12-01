@@ -11,18 +11,23 @@ using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace ecommerce.Controllers
 {
     
-    public class ShopController : Controller, IShopCore
+    public class ShopController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private HttpClient client = new HttpClient();
 
         public ShopController()
         {
-             
+            client.BaseAddress = new Uri("http://localhost:49820/");
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public ShopController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -57,15 +62,19 @@ namespace ecommerce.Controllers
             }
         }
 
-       
-        public ActionResult Index()
+        
+        public async Task<ActionResult> Index()
+
         {
             Session["theme"] = "shop";
-            List<Product> pp = new List<Models.Product>();
-            Product p = new Product();
-            string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
-            return View(plist.Take(8));
+             HttpResponseMessage res = await client.GetAsync("api/cart/gethomepageproducts");
+            res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var empresponse = "";
+           if (res.IsSuccessStatusCode)
+            {
+                empresponse = res.Content.ReadAsStringAsync().Result;
+            }
+            return View(empresponse);
         }
 
 
@@ -126,11 +135,11 @@ namespace ecommerce.Controllers
         [Route("shop/products/{cat}")]
         public ActionResult DirectProducts(string cat)
         {
-            List<Product> pp = new List<Models.Product>();
-            Product p = new Product();
+            List<Products> pp = new List<Models.Products>();
+            Products p = new Products();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
-            plist = plist.Where(x => x.Category == cat).ToList();
+            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
+            plist = plist.Where(x => x.CategoryId == Convert.ToInt32(cat)).ToList();
             return View("products",plist);
         }
 
@@ -138,10 +147,10 @@ namespace ecommerce.Controllers
         [Route("shop/Products")]
         public ActionResult Products()
         {
-            List<Product> pp = new List<Models.Product>();
-            Product p = new Product();
+            List<Products> pp = new List<Models.Products>();
+            Products p = new Products();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
             return View(plist);
         }
      
@@ -167,10 +176,10 @@ namespace ecommerce.Controllers
         }
         public ActionResult ProductDetail(int? id)
         {
-            List<Product> pp = new List<Models.Product>();
-            Product p = new Product();
+            List<Products> pp = new List<Models.Products>();
+            Products p = new Products();
             string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
             p = plist.Find(x => x.Id == id);
             return View(p);
         }

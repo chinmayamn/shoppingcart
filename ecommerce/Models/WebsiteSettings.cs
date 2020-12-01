@@ -10,9 +10,10 @@ using System.Data.SqlClient;
 /// </summary>
 namespace ecommerce.Models
 {
+    
     public class WebsiteSettings
     {
-        string str = ConfigurationManager.ConnectionStrings["cons"].ToString();
+        
         public WebsiteSettings()
         {
             //
@@ -22,6 +23,8 @@ namespace ecommerce.Models
         private string _title;
         private string _keywords;
         private string _description;
+
+       public static string DBConnectionString = ConfigurationManager.ConnectionStrings["cons"].ToString();
 
         public string Title
         {
@@ -40,7 +43,7 @@ namespace ecommerce.Models
         }
         public DataTable getwebsitesettings()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getwebsitesettings", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -53,7 +56,7 @@ namespace ecommerce.Models
         }
         public void updatewebsitesettings(string title, string key, string desc)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updatewebsitesettings", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();

@@ -11,27 +11,7 @@ namespace ecommerce.Models
     {
 
     }
-    public class Product
-    {
-        private int id;
-        private string name;
-        private string image;
-        private string category;
-        private double price;
-        private double discount;
-        private string rating;
-        private string desc;
-
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public string Image { get => image; set => image = value; }
-        public string Category { get => category; set => category = value; }
-        public double Price { get => price; set => price = value; }
-        public double Discount { get => discount; set => discount = value; }
-        public string Rating { get => rating; set => rating = value; }
-        public string ProdDesc { get => desc; set => desc = value; }
-    }
-
+  
     [Serializable]
     public class CartItem
     {
@@ -350,11 +330,5 @@ namespace ecommerce.Models
         }
     }
 
-    //implementing interface
-    interface IShopCore
-    {
-        ActionResult MyOrders();
-        ActionResult Cart();
-    }
 
 }

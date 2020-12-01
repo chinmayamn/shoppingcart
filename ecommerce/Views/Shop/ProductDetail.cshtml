@@ -1,4 +1,4 @@
-﻿@model ecommerce.Models.Product
+﻿@model ecommerce.Models.Products
 @{
    
 }
@@ -9,8 +9,8 @@
             <div class="col-md-9 ftco-animate text-center">
                 <p class="breadcrumbs"><span class="mr-2"><a href="/shop/index">Home</a></span> 
                 <span class="mr-2"><a href="/shop/products">Product</a></span>
-                <span>@Model.Name</span></p>
-                <h1 class="mb-0 bread">@Model.Name</h1>
+                <span>@Model.ProductName</span></p>
+                <h1 class="mb-0 bread">@Model.</h1>
             </div>
         </div>
     </div>
@@ -22,11 +22,11 @@
                 <a href="@Model.Image" class="image-popup" ><img src="@Model.Image" class="img-fluid" alt=""></a>
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                <h3>@Model.Name</h3>
+                <h3>@Model.</h3>
                
-                <p class="price"><span>$@Model.Price</span></p>
+                <p class="price"><span>$@Model.ActualPrice</span></p>
                 <p>
-                 @Model.ProdDesc
+                 @Model.Details
                 </p>
                 <div class="row mt-4">
                     <div class="w-100"></div>
@@ -194,9 +194,9 @@
 $(document).ready(function(){ 
         var s = new Object();
         s.ProductID = '@Model.Id';
-        s.ProductName = '@Model.Name';
+        s.ProductName = '@Model.ProductName';
         s.ProductImageUrl = '@Model.Image';
-        s.Price = '@Model.Price';
+        s.Price = '@Model.ActualPrice';
         s.Quantity = $("#quantity").val();
         s.Discount = '@Model.Discount';
         $("#btnadd").click(function () {

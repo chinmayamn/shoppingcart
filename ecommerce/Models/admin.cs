@@ -599,5 +599,19 @@ namespace ecommerce.Models
 
         }
 
+        public DataTable GetHomePageProducts(int no)
+        {
+            SqlConnection con = new SqlConnection(str);
+            SqlCommand cmd = new SqlCommand("sp_gethomepageproducts", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.Parameters.AddWithValue("@no", no);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+
+        }
+
+
     }
 }

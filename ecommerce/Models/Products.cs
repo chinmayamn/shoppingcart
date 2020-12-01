@@ -12,7 +12,6 @@ namespace ecommerce.Models
 {
     public class Products
     {
-        string str = ConfigurationManager.ConnectionStrings["cons"].ToString();
         public Products()
         {
             //
@@ -49,9 +48,6 @@ namespace ecommerce.Models
             get { return _id; }
             set { _id = value; }
         }
-
-
-
 
         public int CategoryId
         {
@@ -203,7 +199,7 @@ namespace ecommerce.Models
         }
         public DataTable getproductbyid(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductbyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -216,7 +212,7 @@ namespace ecommerce.Models
 
         public void addproductpreview(string image, int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_addproductpreview", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -229,7 +225,7 @@ namespace ecommerce.Models
         }
         public DataTable getproductpreview(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductpreview", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -241,7 +237,7 @@ namespace ecommerce.Models
         }
         public DataTable deleteproductpreview(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deleteproductpreview", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -253,7 +249,7 @@ namespace ecommerce.Models
         }
         public DataTable getproducts()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproducts", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -265,7 +261,7 @@ namespace ecommerce.Models
         }
         public void addproduct(string cat, string subcat, string subsubcat, string name, string image, string mrp, string actual, string discount, string avail, string brand, string intro, string youtube, string review, string details, string rating, string color, string size, int a, int b, int c, int d, string t)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_addproduct", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -297,7 +293,7 @@ namespace ecommerce.Models
         }
         public void updateproduct(int id, string cat, string subcat, string subsubcat, string name, string image, string mrp, string actual, string discount, string avail, string brand, string intro, string youtube, string review, string details, string rating, string color, string size, int a, int b, int c, int d, string t)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updateproduct", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -330,7 +326,7 @@ namespace ecommerce.Models
         }
         public DataTable getproductbysubsubcategory(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductbysubsubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);

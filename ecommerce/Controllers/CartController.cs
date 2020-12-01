@@ -9,15 +9,13 @@ using System.Web;
 using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System.Web.Http.Owin;
 using Newtonsoft.Json;
-using System.Web.Http.Routing;
 using System.Data;
+using ecommerce.Repository;
 
 namespace ecommerce.Controllers
-{
-    //[Authorize]
-    
+{  
+   // [Authorize]
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {
@@ -25,6 +23,7 @@ namespace ecommerce.Controllers
         private ApplicationUserManager _userManager;
         Category c;
         DataTable dt;
+        private readonly ICartRepository _cartRepository;
 
         public ApplicationSignInManager SignInManager
         {
@@ -49,6 +48,16 @@ namespace ecommerce.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        //public CartController()
+        //{
+        
+        //}
+
+        public CartController(ICartRepository cartRepo)
+        {
+            _cartRepository = cartRepo;
         }
         [HttpGet]
         public string GetCart()
@@ -95,13 +104,13 @@ namespace ecommerce.Controllers
             {
                 s1 = new ShoppingCart();
             }
-            List<Product> pp = new List<Models.Product>();
-            Product p = new Product();
+            List<Products> pp = new List<Models.Products>();
+            Products p = new Products();
             string jsonString = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("~/js/data.js"));
-            List<Product> plist = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
             p = plist.Find(x => x.Id == Convert.ToInt32(id));
 
-            s1.Insert(p.Id, p.Name, p.Image, p.Price,1, p.Discount);
+            s1.Insert(p.Id, p.ProductName, p.Image, p.ActualPrice,1, p.Discount);
             user.ShopCart = JsonConvert.SerializeObject(s1);
             UserManager.Update(user);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK,"success");
@@ -158,18 +167,15 @@ namespace ecommerce.Controllers
         [Route("fillcategory")]
         public HttpResponseMessage FillCategory()
         {
-            c = new Category();
-            dt = c.fillcategory();
-            List<Category> l = (from DataRow row in dt.Rows select new Category {
-                Id = Convert.ToInt32(row["id"]),
-                CategoryName = row["category"].ToString(),
-                Parentid = Convert.ToInt32(row["parentid"]==DBNull.Value ? 0 :row["parentid"]),
-                Visible =Convert.ToInt32(row["visible"])
-            }).ToList();
-                
-                return Request.CreateResponse(HttpStatusCode.OK, l);
+            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.FillCategory());
         }
 
+        [HttpGet]
+        [Route("GetHomePageProducts")]
+        public HttpResponseMessage GetHomePageProducts()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetHomePageProducts());
+        }
 
     }
 }
