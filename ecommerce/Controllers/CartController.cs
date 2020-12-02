@@ -14,8 +14,9 @@ using System.Data;
 using ecommerce.Repository;
 
 namespace ecommerce.Controllers
-{  
-   // [Authorize]
+{
+    [CustomAuthenticationFilter]  
+    [Authorize]
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {
@@ -50,40 +51,49 @@ namespace ecommerce.Controllers
             }
         }
 
-        //public CartController()
-        //{
-        
-        //}
-
         public CartController(ICartRepository cartRepo)
         {
             _cartRepository = cartRepo;
+            //UserManager = userManager;
+            //SignInManager = signInManager;
         }
+
         [HttpGet]
-        public string GetCart()
+        public ShoppingCart GetCart()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            return user.ShopCart;
+            ShoppingCart s;
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                s = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
+            }
+            else
+            {
+                s = new ShoppingCart();
+            }
+            return s;
         }
 
         [HttpPost]
         [Route("AddItemtoCart")]
-        public string AddItemtoCart(object s)
+        public string AddItemtoCart(int id, int qty)
         {
-            CartItem c = JsonConvert.DeserializeObject<CartItem>(s.ToString());
+            admin ad = new admin();
+            dt = new DataTable();
+            dt = ad.getproductsbyid(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
             ShoppingCart s1;
-            if(user.ShopCart !=null)
+            if (user.ShopCart != null)
             {
-                 s1 = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
-                
+                s1 = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
+
             }
             else
             {
-                 s1 = new ShoppingCart();
+                s1 = new ShoppingCart();
             }
-           
-            s1.Insert(c.ProductId, c.ProductName, c.ProductImageUrl, c.price, c.quantity, c.discount); 
+
+            s1.Insert(Convert.ToInt32(dt.Rows[0]["id"]),Convert.ToString(dt.Rows[0]["pname"]), Convert.ToString(dt.Rows[0]["image"]), Convert.ToInt32(dt.Rows[0]["actual"]), qty, Convert.ToInt32(dt.Rows[0]["discount"]));
             user.ShopCart = JsonConvert.SerializeObject(s1);
             UserManager.Update(user);
             return "success";
@@ -174,7 +184,28 @@ namespace ecommerce.Controllers
         [Route("GetHomePageProducts")]
         public HttpResponseMessage GetHomePageProducts()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetHomePageProducts());
+            if (User.Identity.IsAuthenticated)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetHomePageProducts());
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetProducts")]
+        public HttpResponseMessage GetProducts()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetProducts());
+        }
+
+        [HttpGet]
+        [Route("GetProductDetail")]
+        public HttpResponseMessage GetProductDetail(int id)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetProductDetail(id));
         }
 
     }

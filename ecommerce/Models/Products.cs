@@ -1,9 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Xml.Linq;
+﻿using System.Data;
 using System.Data.SqlClient;
 /// <summary>
 /// Summary description for Products
@@ -252,8 +247,6 @@ namespace ecommerce.Models
             SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproducts", con);
             cmd.CommandType = CommandType.StoredProcedure;
-
-
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);

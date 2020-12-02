@@ -330,5 +330,15 @@ namespace ecommerce.Models
         }
     }
 
-
+    public class ProductViewModel
+    {
+        public IEnumerable<Products> ProductsList { get; set; }
+        public IEnumerable<Category> CategoryList { get; set; }
+    }
+  
+    public class ProductDetailModel
+    {
+        public Products productdetail { get; set; }
+    }
+   
 }

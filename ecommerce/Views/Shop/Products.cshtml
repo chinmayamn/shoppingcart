@@ -1,8 +1,9 @@
-﻿@model IEnumerable<ecommerce.Models.Product>
+﻿@model ecommerce.Models.ProductViewModel
 @{
-    ViewBag.Title = "Products";
-  
+
 }
+@Styles.Render("~/Content/plugins/datatables-bs4/css/dataTables.bootstrap4.css")
+<link rel="stylesheet" href="~/Content/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 <div class="hero-wrap hero-bread" style="background-image: url('../../images/bg_1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -18,28 +19,29 @@
         <div class="row justify-content-center filters" id="filters">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
-                    <li> <button class="btn btn-primary active" data-filter="*" >All</button></li>
-                    <li> <button class="btn btn-primary" id="vegetables" data-filter=".vegetables">Vegetables</button></li>
-                    <li> <button class="btn btn-primary" id="fruits" data-filter=".fruits">Fruits</button></li>
-                    <li> <button class="btn btn-primary" id="ayurvedic" data-filter=".ayurvedic">Ayurvedic</button></li>
-
+                    <li> <button class="btn btn-primary active" data-filter="*">All</button></li>
+           
+                @foreach (var item in Model.CategoryList)
+                 {
+                        <li> <button class="btn btn-primary" id="@item.Id" data-filter=".@item.Id">@item.CategoryName</button></li>
+                   }
                 </ul>
             </div>
         </div>
-        <div class="row" id="prod">
-@foreach (var item in Model)
+        <div class="row" id="" >
+@foreach (var item in Model.ProductsList)
 {
-            <div class="col-md-6 col-lg-3 ftco-animate filter @item.Category">
+            <div class="col-md-6 col-lg-3 ftco-animate filter @item.CategoryId">
                 <div class="product">
                     <a href="/shop/productdetail/@item.Id" class="img-prod">
                         <img class="img-fluid" src=@item.Image alt="">
                        
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/shop/productdetail/@item.Id">@item.Name</a></h3>
+                        <h3><a href="/shop/productdetail/@item.Id">@item.ProductName</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="price-sale">$@item.Price</span></p>
+                                <p class="price"><span class="price-sale">$@item.ActualPrice</span></p>
                             </div>
                         </div>
                         <div class="bottom-area d-flex px-3">
@@ -76,33 +78,96 @@
             </div>
         </div>
     </div>
-</section>
 
-@Scripts.Render("~/js/jquery.min.js")
+    <table  id="example2">
+      <thead>
+                <tr>
+                  <th></th>
+                 
+                </tr>
+                </thead>
+        <tbody>
+            <tr>
+                <td>Trident</td>
+            
+            </tr>
+            <tr>
+                <td>Trident</td>
+               
+            </tr>
+            <tr>
+                <td>Trident</td>
+               
+            </tr>
+            <tr>
+                <td>Trident</td>
+               
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+            <tr>
+                <td>Trident</td>
+
+            </tr>
+                   </tbody>
+       
+    </table>
+
+</section>
+@Scripts.Render("~/content/plugins/jquery/jquery.min.js")
 
 <script type="text/javascript">
-    $(document).ready(function () {
-    	 $('#filters').on('click', 'button', function() {
-
-	            $('#filters button').removeClass('active');
-	            $(this).addClass('active');
-	            var value = $(this).attr('data-filter');
-
-	           if(value == "*")
-                {
-                    $('.filter').show('3000');
-                }
-                else
-                {
-                    $(".filter").not(value).hide('3000');
-                    $('.filter').filter(value).show('3000');
-                }
-	      });
-
-         var url = window.location.href;
-         var test = url.split("/"); test = test.pop(); 
-        if(test != "products")
-         $('#filters button').not("#"+test).hide();
-
-	  });
+    $(function () {
+        ProductFilter();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    }); 
 </script>

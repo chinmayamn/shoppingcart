@@ -2,6 +2,8 @@ using System;
 
 using Unity;
 using ecommerce.Repository;
+using ecommerce.Models;
+
 namespace ecommerce
 {
     /// <summary>
@@ -42,6 +44,9 @@ namespace ecommerce
 
             // TODO: Register your type's mappings here.
             container.RegisterType<ICartRepository, CartRepository>();
+         
+         
+
         }
     }
 }

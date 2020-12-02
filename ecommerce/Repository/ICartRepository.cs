@@ -7,5 +7,8 @@ namespace ecommerce.Repository
     {
         List<Category> FillCategory();
         List<Products> GetHomePageProducts();
+        ProductViewModel GetProducts();
+        ProductDetailModel GetProductDetail(int id);
+        
     }
 }

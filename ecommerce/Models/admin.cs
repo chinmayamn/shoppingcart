@@ -13,7 +13,7 @@ namespace ecommerce.Models
 {
     public class admin
     {
-        string str = ConfigurationManager.ConnectionStrings["cons"].ToString();
+        
         public admin()
         {
             //
@@ -24,7 +24,7 @@ namespace ecommerce.Models
 
         public DataTable getdefaultshippingtax()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getdefaultshippingtax", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -36,7 +36,7 @@ namespace ecommerce.Models
 
         public DataTable getuserspassword(Guid user)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getuserspassword", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@user", user);
@@ -47,7 +47,7 @@ namespace ecommerce.Models
         }
         public DataTable fillsimiliar(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillsimiliar", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -58,7 +58,7 @@ namespace ecommerce.Models
         }
         public DataTable deletenewsuser(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deletenewsuser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -70,7 +70,7 @@ namespace ecommerce.Models
 
         public DataTable filllikethis(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_filllikethis", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -83,7 +83,7 @@ namespace ecommerce.Models
 
         public DataTable getfreeshippinguser()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getfreeshippinguser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -93,7 +93,7 @@ namespace ecommerce.Models
         }
         public void deleteuser(string y)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deleteuser", con);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -106,7 +106,7 @@ namespace ecommerce.Models
 
         public void addshippingtax(string shipping, string tax)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_addshippingtax", con);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -118,7 +118,7 @@ namespace ecommerce.Models
         }
         public void deleteshippingtax(string shipping)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deleteshippingtax", con);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -131,7 +131,7 @@ namespace ecommerce.Models
 
         public void updateproductview(string type, string id, string value)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updateproductview", con);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -144,7 +144,7 @@ namespace ecommerce.Models
 
         public DataTable brandfilter(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_brandfilter", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ssid", id);
@@ -156,7 +156,7 @@ namespace ecommerce.Models
         }
         public DataTable getnewarrivals()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getnewarrivals", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -166,7 +166,7 @@ namespace ecommerce.Models
         }
         public DataTable gettop4newarrivals()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gettop4newarrivals", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -176,7 +176,7 @@ namespace ecommerce.Models
         }
         public DataTable getexclusive()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getexclusive", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -186,7 +186,7 @@ namespace ecommerce.Models
         }
         public DataTable gettop6exclusive()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gettop6exclusive", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -196,7 +196,7 @@ namespace ecommerce.Models
         }
         public DataTable getentertainmentgadgets()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getentertainment", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -206,7 +206,7 @@ namespace ecommerce.Models
         }
         public DataTable gettop4entertainmentgadgets()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gettop4entertainment", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -216,7 +216,7 @@ namespace ecommerce.Models
         }
         public DataTable gethotoffers()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gethotoffers", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -226,7 +226,7 @@ namespace ecommerce.Models
         }
         public DataTable gettop6hotoffers()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gettop6hotoffers", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -236,7 +236,7 @@ namespace ecommerce.Models
         }
         public DataTable getproductsbycombination(int cid, int sid, int ssid)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductsbycombination", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ssid", ssid);
@@ -249,7 +249,7 @@ namespace ecommerce.Models
         }
         public DataTable brandfiltersub(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_brandfiltersub", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@sid", id);
@@ -263,7 +263,7 @@ namespace ecommerce.Models
 
         public DataTable getproductsbyid(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductsbyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -277,7 +277,7 @@ namespace ecommerce.Models
 
         public DataTable getcolorfilterbyid(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getcolorfilterbyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -289,7 +289,7 @@ namespace ecommerce.Models
         }
         public DataTable getsizefilterbyid(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsizefilterbyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -302,7 +302,7 @@ namespace ecommerce.Models
 
         public DataTable getcategorydatabysub(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getcategorydatabysub", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@sid", id);
@@ -314,7 +314,7 @@ namespace ecommerce.Models
         }
         public DataTable getcategorydata(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getcategorydata", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ssid", id);
@@ -326,7 +326,7 @@ namespace ecommerce.Models
         }
         public DataTable getnavigation(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getnavigation", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ssid", id);
@@ -338,7 +338,7 @@ namespace ecommerce.Models
         }
         public DataTable getnavigation1(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getnavigation1", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@cid", id);
@@ -350,7 +350,7 @@ namespace ecommerce.Models
         }
         public DataTable getnavigation2(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getnavigation2", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@sid", id);
@@ -362,7 +362,7 @@ namespace ecommerce.Models
         }
         public DataTable getproductnavigate(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_productnavigate", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -379,7 +379,7 @@ namespace ecommerce.Models
 
         public DataTable getsubsubcategorywithcountbysubcategory(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubsubcategorywithcountbysubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -393,7 +393,7 @@ namespace ecommerce.Models
        
         public DataTable getsubsubcategorybysubcategoryuser(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubsubcategorybysubcategoryuser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -406,7 +406,7 @@ namespace ecommerce.Models
         }
         public DataTable checkuser(string user, string pass)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_checkusers", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@user", user);
@@ -419,7 +419,7 @@ namespace ecommerce.Models
         }
         public DataTable getuserpassword(string user)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getuserpassword", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@user", user);
@@ -435,7 +435,7 @@ namespace ecommerce.Models
 
         public void deleteproduct(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deleteproduct", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -448,7 +448,7 @@ namespace ecommerce.Models
         }
         public void updatecategoryadmin(string pos, string t)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updatecategoryadmin", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -461,7 +461,7 @@ namespace ecommerce.Models
         }
         public void updateuserpassword(string user, string pass)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updateuserpassword", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -484,7 +484,7 @@ namespace ecommerce.Models
         public DataTable getsubcategorybycategoryuser(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubcategorybycategoryuser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -500,7 +500,7 @@ namespace ecommerce.Models
         public DataTable checkproducts(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_checkproducts", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -514,7 +514,7 @@ namespace ecommerce.Models
         public DataTable getproductbysubcategoryuser(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getproductbysubcategoryuser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@sid", id);
@@ -527,7 +527,7 @@ namespace ecommerce.Models
         public DataTable fillcategoryuser()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillcategoryuser", con);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -540,7 +540,7 @@ namespace ecommerce.Models
         public DataTable fillleftcategory()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillleftcategory", con);
             con.Open();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -553,7 +553,7 @@ namespace ecommerce.Models
         public DataTable fillrightcategory()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillrightcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -564,7 +564,7 @@ namespace ecommerce.Models
 
         public void updatepassword(string pass)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updatepassword", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -577,7 +577,7 @@ namespace ecommerce.Models
 
         public DataTable getadsbyposition(string type)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getadsbyposition", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@type", type);
@@ -589,7 +589,7 @@ namespace ecommerce.Models
         }
         public DataTable getadminlogin()
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getadminlogin", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -601,7 +601,7 @@ namespace ecommerce.Models
 
         public DataTable GetHomePageProducts(int no)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_gethomepageproducts", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);

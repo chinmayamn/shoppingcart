@@ -406,6 +406,7 @@ namespace ecommerce.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["ccount"] = 0;
             return RedirectToAction("Login", "Account");
         }
 

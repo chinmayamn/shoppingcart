@@ -1,16 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Xml.Linq;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace ecommerce.Models
 {
     public class Category
     {
-        string str = ConfigurationManager.ConnectionStrings["cakeconnection"].ToString();
+       
         public Category()
         {
             //
@@ -49,7 +44,7 @@ namespace ecommerce.Models
         public DataTable fillcategory()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillcategory", con);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -62,7 +57,7 @@ namespace ecommerce.Models
         public DataTable fillsubcategory(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillsubcategorybycategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -74,7 +69,7 @@ namespace ecommerce.Models
         public DataTable fillsubcategory()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_fillsubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -85,7 +80,7 @@ namespace ecommerce.Models
         }
         public void createsubcategory(string id, string name)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_createsubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -98,7 +93,7 @@ namespace ecommerce.Models
         }
         public void addsubcategory(string cat, string subcat)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_addsubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -112,7 +107,7 @@ namespace ecommerce.Models
         }
         public void updatesubcategory(string id, string cat, string subcat)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updatesubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -129,7 +124,7 @@ namespace ecommerce.Models
         public DataTable checksubcategory(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_checksubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -142,7 +137,7 @@ namespace ecommerce.Models
         /*subcategory ends */
         public void deletecategory(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_deletecategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -155,7 +150,7 @@ namespace ecommerce.Models
 
         public void updatecategory(int id, string name)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_updatecategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -168,7 +163,7 @@ namespace ecommerce.Models
         public DataTable getsubsubcategorybyid(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubsubcategorybyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -181,7 +176,7 @@ namespace ecommerce.Models
         public DataTable getcategorybyid(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getcategorybyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -193,7 +188,7 @@ namespace ecommerce.Models
         public DataTable getsubcategorybyid(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubcategorybyid", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -204,7 +199,7 @@ namespace ecommerce.Models
         }
         public void createcategory(string name)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_createcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -216,7 +211,7 @@ namespace ecommerce.Models
         public DataTable getsubsubcategory()
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubsubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -228,7 +223,7 @@ namespace ecommerce.Models
         public DataTable getsubcategorybycategory(int id)
         {
 
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubcategorybycategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
@@ -239,7 +234,7 @@ namespace ecommerce.Models
         }
         public DataTable getsubsubcategorybysubcategory(int id)
         {
-            SqlConnection con = new SqlConnection(str);
+            SqlConnection con = new SqlConnection(WebsiteSettings.DBConnectionString);
             SqlCommand cmd = new SqlCommand("sp_getsubsubcategorybysubcategory", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);

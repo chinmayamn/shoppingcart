@@ -28,6 +28,7 @@ namespace ecommerce.Controllers
             client.BaseAddress = new Uri("http://localhost:49820/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
+           
         }
 
         public ShopController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -35,6 +36,7 @@ namespace ecommerce.Controllers
            
             UserManager = userManager;
             SignInManager = signInManager;
+          
         }
 
         public ApplicationSignInManager SignInManager
@@ -70,11 +72,14 @@ namespace ecommerce.Controllers
              HttpResponseMessage res = await client.GetAsync("api/cart/gethomepageproducts");
             res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var empresponse = "";
+            List<Products> p=new List<Models.Products>();
            if (res.IsSuccessStatusCode)
             {
                 empresponse = res.Content.ReadAsStringAsync().Result;
+                p = JsonConvert.DeserializeObject<List<Products>>(empresponse);
             }
-            return View(empresponse);
+            var g = GetCart();
+            return View(p);
         }
 
 
@@ -145,44 +150,61 @@ namespace ecommerce.Controllers
 
         [HttpGet]
         [Route("shop/Products")]
-        public ActionResult Products()
+        public async Task<ActionResult> Products()
         {
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
-            string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
-            return View(plist);
+            HttpResponseMessage res = await client.GetAsync("api/cart/getproducts");
+            res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var empresponse = "";
+            ProductViewModel p = new ProductViewModel();
+            if (res.IsSuccessStatusCode)
+            {
+                empresponse = res.Content.ReadAsStringAsync().Result;
+                p = JsonConvert.DeserializeObject<ProductViewModel>(empresponse);
+            }
+          
+            return View(p);
+         
         }
      
         [Authorize]
         public ActionResult Cart()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            ShoppingCart s1;
-            if (user.ShopCart != null)
-            {
-                s1 = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
-
-            }
-            else
-            {
-                s1 = new ShoppingCart();
-            }
-            return View(s1);
+            return View(GetCart());
         }
         public ActionResult Checkout()
         {
             return View();
         }
-        public ActionResult ProductDetail(int? id)
+        public async Task<ActionResult> ProductDetail(int id)
         {
-            List<Products> pp = new List<Models.Products>();
-            Products p = new Products();
-            string jsonString = System.IO.File.ReadAllText(Server.MapPath("~/js/data.js"));
-            List<Products> plist = JsonConvert.DeserializeObject<List<Products>>(jsonString);
-            p = plist.Find(x => x.Id == id);
+            HttpResponseMessage res = await client.GetAsync("api/cart/getproductdetail?id="+id);
+            res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var empresponse = "";
+            ProductDetailModel p = new ProductDetailModel();
+            if (res.IsSuccessStatusCode)
+            {
+                empresponse = res.Content.ReadAsStringAsync().Result;
+                p = JsonConvert.DeserializeObject<ProductDetailModel>(empresponse);
+            }
+
             return View(p);
+         
         }
 
+        public ShoppingCart GetCart()
+        {
+            ShoppingCart s;
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                s = JsonConvert.DeserializeObject<ShoppingCart>(user.ShopCart);
+                Session["ccount"] = s.Items.Count();
+            }
+            else
+            {
+                s = new ShoppingCart(); Session["ccount"] = 0;
+            }
+            return s;
+        }
     }
 }

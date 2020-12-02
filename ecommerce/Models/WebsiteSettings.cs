@@ -10,10 +10,8 @@ using System.Data.SqlClient;
 /// </summary>
 namespace ecommerce.Models
 {
-    
-    public class WebsiteSettings
-    {
-        
+   public class WebsiteSettings
+    {    
         public WebsiteSettings()
         {
             //
@@ -24,7 +22,7 @@ namespace ecommerce.Models
         private string _keywords;
         private string _description;
 
-       public static string DBConnectionString = ConfigurationManager.ConnectionStrings["cons"].ToString();
+       public static string DBConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
 
         public string Title
         {

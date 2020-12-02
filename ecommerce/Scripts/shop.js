@@ -1,4 +1,16 @@
-﻿function Fillcategory() {
+﻿function ProductFilter()
+{
+    var url = window.location.href;
+    var test = url.split("/"); test = test.pop(); test = test.trim();
+    
+    if (test === "products") {
+
+    }
+    else {
+        $('#filters button').not("#" + test).hide();
+    }
+}
+function Fillcategory() {
     $.ajax({
         type: "GET",
         url: "/api/cart/fillcategory",
@@ -76,6 +88,7 @@ function GetCart() {
     });
 }
 
+//will load objects to dom
 $(document).ready(function () {
     $(".quantity-left-minus").click(function () {
         var productid = $(this).attr("alt"); //get quantity textbox value
@@ -102,8 +115,7 @@ $(document).ready(function () {
             UpdateQuantity(itemindex,productid,c,2);
         }
     });
-   
-    GetCart();
+ 
     $("#btnm").click(function () {
         
         var a = $("#quantity").val();
@@ -180,6 +192,19 @@ $(document).ready(function () {
         });
     });
 
+    $('#filters').on('click', 'button', function () {
 
+        $('#filters button').removeClass('active');
+        $(this).addClass('active');
+        var value = $(this).attr('data-filter');
+
+        if (value == "*") {
+            $('.filter').show('3000');
+        }
+        else {
+            $(".filter").not(value).hide('3000');
+            $('.filter').filter(value).show('3000');
+        }
+    });
 
 });
