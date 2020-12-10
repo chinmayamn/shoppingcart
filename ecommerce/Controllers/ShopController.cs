@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace ecommerce.Controllers
 {
@@ -28,7 +29,9 @@ namespace ecommerce.Controllers
             client.BaseAddress = new Uri("http://localhost:49820/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
-           
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+            Convert.ToBase64String(Encoding.Default.GetBytes("chinmayamn@gmail.com:Chinmaya@123")));
+
         }
 
         public ShopController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -66,7 +69,6 @@ namespace ecommerce.Controllers
 
         
         public async Task<ActionResult> Index()
-
         {
             Session["theme"] = "shop";
              HttpResponseMessage res = await client.GetAsync("api/cart/gethomepageproducts");

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-
+using System.Web.Http.Cors;
 namespace ecommerce
 {
     public static class WebApiConfig
@@ -30,8 +30,9 @@ namespace ecommerce
             //user authentication
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            
 
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
         }
     }

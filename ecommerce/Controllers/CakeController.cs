@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace ecommerce.Controllers
 {
@@ -18,6 +19,8 @@ namespace ecommerce.Controllers
             client.BaseAddress = new Uri("http://localhost:49820/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Authorization",
+            Convert.ToBase64String(Encoding.Default.GetBytes("chinmayamn@gmail.com:Chinmaya@123")));
         }
 
         // GET: Cake

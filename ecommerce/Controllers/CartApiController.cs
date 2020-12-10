@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -12,19 +11,21 @@ using Microsoft.AspNet.Identity.Owin;
 using Newtonsoft.Json;
 using System.Data;
 using ecommerce.Repository;
+using ecommerce.Attributes;
 
 namespace ecommerce.Controllers
 {
-    [CustomAuthenticationFilter]  
-    [Authorize]
+
     [RoutePrefix("api/cart")]
-    public class CartController : ApiController
+    [Authorize]
+    [ApiKeyAttribute]
+    public class CartApiController : ApiController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         Category c;
         DataTable dt;
-        private readonly ICartRepository _cartRepository;
+        private readonly ICartApiRepository _cartApiRepository;
 
         public ApplicationSignInManager SignInManager
         {
@@ -51,11 +52,10 @@ namespace ecommerce.Controllers
             }
         }
 
-        public CartController(ICartRepository cartRepo)
+        public CartApiController(ICartApiRepository cartRepo)
         {
-            _cartRepository = cartRepo;
-            //UserManager = userManager;
-            //SignInManager = signInManager;
+            _cartApiRepository = cartRepo;
+            
         }
 
         [HttpGet]
@@ -172,41 +172,5 @@ namespace ecommerce.Controllers
             UserManager.Update(user);
             return user.ShopCart;
         }
-
-        [HttpGet]
-        [Route("fillcategory")]
-        public HttpResponseMessage FillCategory()
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.FillCategory());
-        }
-
-        [HttpGet]
-        [Route("GetHomePageProducts")]
-        public HttpResponseMessage GetHomePageProducts()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetHomePageProducts());
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        [HttpGet]
-        [Route("GetProducts")]
-        public HttpResponseMessage GetProducts()
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetProducts());
-        }
-
-        [HttpGet]
-        [Route("GetProductDetail")]
-        public HttpResponseMessage GetProductDetail(int id)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, _cartRepository.GetProductDetail(id));
-        }
-
     }
 }

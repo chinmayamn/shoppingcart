@@ -232,3 +232,7 @@ C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.pdb
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\ecommerce.dll.config
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\ecommerce.dll
 C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\ecommerce.pdb
+C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\System.Web.Cors.dll
+C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\System.Web.Http.Cors.dll
+C:\Users\chaitra\source\repos\ecommerce\ecommerce\bin\System.Web.Http.Cors.xml
+C:\Users\chaitra\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.csprojResolveAssemblyReference.cache

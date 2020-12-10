@@ -1,4 +1,31 @@
-﻿function ProductFilter()
+﻿function BootstrapSlider() {
+    
+    $('.t1').after('<div id="nav" class="text-center"></div>');
+    var rowsShown = 4;
+    var rowsTotal = $('.t1 .row .filter').length; console.log(rowsTotal);
+    var numPages = rowsTotal / rowsShown;
+    for (i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        $('#mypage').append('<li><a href="#" class="" rel="' + i + '">&emsp;' + pageNum + '&emsp;</a></li>');
+    }
+    $('.t1 .row .filter').hide();
+    $('.t1 .row .filter').slice(0, rowsShown).show();
+    $('#mypage a:first').addClass('active');
+    $('#mypage a').bind('click', function (e) {
+        e.preventDefault();
+        $('#mypage a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('.t1 .row .filter').css('opacity', '0').hide().slice(startItem, endItem).
+            css('display', 'flex').animate({
+                opacity: 1
+            }, 300);
+    });
+}
+
+function ProductFilter()
 {
     var url = window.location.href;
     var test = url.split("/"); test = test.pop(); test = test.trim();
@@ -10,6 +37,7 @@
         $('#filters button').not("#" + test).hide();
     }
 }
+
 function Fillcategory() {
     $.ajax({
         type: "GET",

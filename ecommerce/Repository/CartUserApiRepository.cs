@@ -6,7 +6,7 @@ using System.Data;
 using Newtonsoft.Json;
 namespace ecommerce.Repository
 {
-    public class CartRepository:ICartRepository
+    public class CartUserApiRepository: ICartUserApiRepository
     {
         Category c;
         DataTable dt;

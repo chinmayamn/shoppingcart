@@ -12,12 +12,13 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http.Owin;
 using Newtonsoft.Json;
 using System.Web.Http.Routing;
-
-
+using System.Web.Http.Cors;
+using ecommerce.Attributes;
 namespace ecommerce.Controllers
 {
-    
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize]
+    [ApiKeyAttribute]
     public class ValuesController : ApiController
     {
         // GET api/<controller>

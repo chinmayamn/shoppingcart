@@ -3,12 +3,11 @@ using ecommerce.Models;
 
 namespace ecommerce.Repository
 {
-    public interface ICartRepository
+    public interface ICartUserApiRepository
     {
         List<Category> FillCategory();
         List<Products> GetHomePageProducts();
         ProductViewModel GetProducts();
         ProductDetailModel GetProductDetail(int id);
-        
     }
 }

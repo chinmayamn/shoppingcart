@@ -43,10 +43,10 @@ namespace ecommerce
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
-            container.RegisterType<ICartRepository, CartRepository>();
-         
-         
-
+            container.RegisterType<ICartAdminApiRepository, CartAdminApiRepository>();
+            container.RegisterType<ICartUserApiRepository, CartUserApiRepository>();
+            container.RegisterType<ICartApiRepository, CartApiRepository>();
+            
         }
     }
 }
