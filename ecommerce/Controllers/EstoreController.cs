@@ -53,7 +53,7 @@ namespace ecommerce.Controllers
                 ViewBag.Title = "Shipping Information";
                 ViewBag.text = "shipping";
             }
-            else if (CurrentAction == "/shop/exchange")
+            else if (CurrentAction == "/shop/eecommxchange")
             {
                 ViewBag.Title = "Return & Exchange";
                 ViewBag.text = "exchange";
